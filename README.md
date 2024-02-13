@@ -1,66 +1,101 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## PEC4 - Asignatura Desarrollo Backend con PHP
+#### Máster Desarrollo de Sitios y Aplicaciones Web (UOC)
 
-## About Laravel
+Esta práctica consistía en el desarrollo del backend de un portal de noticias y una API de consulta básica.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Caso de estudio
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+La estructura de contenidos que se propone estará formada por dos entidades, la entidad noticia y la entidad categoría.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+La entidad noticia dispondrá de los siguientes campos:
 
-## Learning Laravel
+Título (texto inferior a 255 caracteres)
+Autor (campo de texto)
+Fecha de publicación
+Contenido (texto largo)
+Imagen
+Categoría (como entidad referenciada)
+La entidad categoría será una taxonomía simple con la que se organizarán las noticias, a modo de las taxonomías en Drupal.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Para definir las relaciones entre las dos entidades, noticia y categoría, tendremos en cuenta que una noticia puede pertenecer a varias categorías.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Sin embargo, para simplificar asumiremos que un autor escribirá sólo una noticia. Por este motivo, “autor” se define como campo de texto, no como entidad.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Para implementar el portal de noticias seguiremos los siguientes pasos:
 
-## Laravel Sponsors
+Instalación de Laravel
+Creación de las migraciones, modelos y controladores necesarios
+Creación de "fakers" y "seeders" (sistema para generar contenidos ficticios de Laravel)
+Implementación del frontend de la aplicación
+Desarrollo de la API de consulta de datos
+Migración al servidor de pruebas
+ 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Tareas
 
-### Premium Partners
+En concreto se pide:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+ 
+### a) Instalación de Laravel
 
-## Contributing
+En primer lugar instalar Laravel en el servidor local y comprobar su funcionamiento.  
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### b) Crear las migraciones y modelos necesarios. Uso de Tinker
 
-## Code of Conduct
+A partir de las especificaciones de la aplicación crearemos las migraciones, los modelos necesarios y la relación entre las dos entidades a través de una “pivot table”.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Con la herramienta Tinker, probaremos la instanciación de alguna noticia y su asignación a alguna categoría.
+ 
+### c) Generar contenidos ficticios
 
-## Security Vulnerabilities
+Para generar contenidos ficticios utilizaremos Factory. Factory es un mecanismo que nos permite generar datos de prueba en la base de datos.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Utilizaremos Faker para generar contenidos ficticios. Para activarlo podemos crear un seeder y llamarlo con el comando: php artisan db:seed
 
-## License
+Encontraréis más información en este enlace: https://laravel.com/docs/9.x/seeding
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+De esta forma crearemos al menos 100 noticias automáticamente.
+
+### d) Implementar el frontend de la aplicación
+
+La página de inicio mostrará un listado de 5 noticias. De cada una de ellas se mostrará su título (enlazado a la página única de la noticia), la imagen y la fecha de publicación.
+
+Además será necesario crear la página única de cada una de las noticias, donde se mostrarán todos sus campos.
+
+En la página de inicio añadiremos un menú con tres enlaces, a cada una de las APIs implementadas en el siguiente apartado. 
+
+### e) API
+
+A continuación desarrollaremos los siguientes puntos de entrada API (de solo lectura) y comprobaremos su funcionamiento en un navegador web:
+
+- / api / noticias / <page>
+El parámetro < page > permite seleccionar cada una de las páginas de resultado (has de configurar 10 noticias por página). Devuelve un listado en formato JSON con los títulos, ids y fechas de publicación de cada una de las noticias.
+
+- / api / noticia / <id>
+Donde < id > es el identificador único de cada noticia. Devuelve todos los campos de la noticia en formato JSON.
+
+- / api / categoria / <id> / <page>
+Donde < id > es el identificador único de la categoría. Devuelve un listado en formato JSON con los títulos, ids y fechas de publicación de cada una de las noticias de la categoría especificada, y < page > permite seleccionar la página de resultados deseada.
+
+### Página principal (Noticias)
+
+![image](https://github.com/RaquelBayas/PHP_PEC4/assets/31921518/5424009a-37c6-419d-b11d-7d963c4299e4)
+
+### Página noticia
+
+![image](https://github.com/RaquelBayas/PHP_PEC4/assets/31921518/147c2f1a-ee7f-4f44-8aca-c12400b33892)
+
+### /api/noticias/page
+<img width="550" alt="image" src="https://github.com/RaquelBayas/PHP_PEC4/assets/31921518/a69e098a-5b3a-4151-bd96-d45811756eb9">
+
+### /api/noticia/id
+<img width="887" alt="image" src="https://github.com/RaquelBayas/PHP_PEC4/assets/31921518/f2a854e2-2252-4921-8f75-62f537315c70">
+
+### /api/categoria/id/page
+<img width="590" alt="image" src="https://github.com/RaquelBayas/PHP_PEC4/assets/31921518/c6c036f4-37ef-466c-9d5d-8fa9db46b00f">
+
+
+
+
+
